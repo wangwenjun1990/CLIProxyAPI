@@ -1,7 +1,10 @@
 services:
   cli-proxy-api:
-    image: ${CLI_PROXY_IMAGE:-eceasy/cli-proxy-api:latest}
-    pull_policy: always
+    # Default to a locally built image so this fork runs its own source.
+    # Never pull here, otherwise the upstream image would overwrite the
+    # local tag on every `docker compose up`.
+    image: ${CLI_PROXY_IMAGE:-cli-proxy-api:local}
+    pull_policy: never
     build:
       context: .
       dockerfile: Dockerfile
